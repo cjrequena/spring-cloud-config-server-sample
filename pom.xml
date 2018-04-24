@@ -85,6 +85,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bus-kafka</artifactId>
         </dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
+		</dependency>
         <!-- Due a dependency with kafka, is needed to add log4j, next spring cloud version may no need it -->
         <dependency>
             <groupId>log4j</groupId>
