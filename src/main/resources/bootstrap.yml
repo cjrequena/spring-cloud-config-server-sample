@@ -3,6 +3,8 @@ server:
   contextPath: /
 management:
   context-path: /admin # Management endpoint context-path. For instance `/actuator`
+  security:
+    enabled: false
 ---
 spring:
   application:
