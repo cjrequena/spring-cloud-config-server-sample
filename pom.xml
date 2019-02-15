@@ -18,8 +18,8 @@
 		<maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
 
 		<!-- Spring -->
-		<spring-boot.version>1.5.19.RELEASE</spring-boot.version>
-		<spring-cloud-dependencies.version>Edgware.SR5</spring-cloud-dependencies.version>
+		<spring-boot.version>2.0.8.RELEASE</spring-boot.version>
+		<spring-cloud-dependencies.version>Finchley.SR2</spring-cloud-dependencies.version>
 
 		<!-- Boilerplate -->
 		<lombok.version>1.16.12</lombok.version>
@@ -49,6 +49,11 @@
 	</dependencyManagement>
 	<dependencies>
 		<!-- Spring Boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-properties-migrator</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -89,12 +94,6 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
 		</dependency>
-        <!-- Due a dependency with kafka, is needed to add log4j, next spring cloud version may no need it -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
         <!--Boilerplate-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
