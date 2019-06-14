@@ -40,3 +40,12 @@ logging.level: # Log levels severity mapping. For instance, `logging.level.org.s
   org.springframework: INFO
   com.sample: DEBUG
   org.I0Itec.zkclient.ZkConnection: ERROR
+
+# BANNER
+spring.banner.charset: UTF-8 # Banner file encoding.
+spring.banner.location: classpath:banner.txt # Banner file location.
+spring.banner.image.location: classpath:banner.gif # Banner image file location (jpg/png can also be used).
+spring.banner.image.width:  # Width of the banner image in chars (default 76)
+spring.banner.image.height:  # Height of the banner image in chars (default based on image height)
+spring.banner.image.margin:  # Left hand image margin in chars (default 2)
+spring.banner.image.invert:  # If images should be inverted for dark terminal themes (default false)
