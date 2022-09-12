@@ -17,6 +17,56 @@ info:
 
 spring.main.allow-bean-definition-overriding: true # Enable bean override
 
+server.servlet.context-path: / # Context path of the application.
+server.port: ${SERVER_PORT:8888} # Server HTTP port.
+
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:config-server}
+  cloud:
+    consul:
+      host: ${SPRING_CLOUD_CONSUL_HOST:localhost}
+      port: ${SPRING_CLOUD_CONSUL_PORT:8500}
+      enabled: ${SPRING_CLOUD_CONSUL_ENABLED:false}
+      discovery:
+        # Service name
+        serviceName: ${spring.application.name}
+        # Unique service instance id
+        #instanceId: ${spring.application.name}:${random.value}
+        instanceId: ${spring.application.name}
+        # Is service discovery enabled?
+        enabled: ${SPRING_CLOUD_CONSUL_DISCOVERY_ENABLED:true}
+        # Register as a service in consul.
+        register: ${SPRING_CLOUD_CONSUL_DISCOVERY_REGISTER:true}
+        # Register health check in consul. Useful during development of a service.
+        registerHealthCheck: ${SPRING_CLOUD_CONSUL_DISCOVERY_REGISTERHEALTHCHECK:true}
+        # Alternate server path to invoke for health checking
+        healthCheckPath: /management/healthcheck
+        # Custom health check url to override default
+        #healthCheckUrl: ${SPRING_CLOUD_CONSUL_DISCOVERY_HEALTHCHECKURL}
+        # How often to perform the health check (e.g. 10s), defaults to 10s.
+        healthCheckInterval: ${SPRING_CLOUD_CONSUL_DISCOVERY_HEALTHCHECKINTERVAL:15s}
+        # Timeout for health check (e.g. 10s).
+        healthCheckTimeout: ${SPRING_CLOUD_CONSUL_DISCOVERY_HEALTHCHECKTIMEOUT:15s}
+        # Timeout to deregister services critical for longer than timeout (e.g. 30m).
+        healthCheckCriticalTimeout: ${SPRING_CLOUD_CONSUL_DISCOVERY_HEALTHCHECKCRITICALTIMEOUT:10m}
+        # Tags to use when registering service
+        tags: project_name=${project.name}, version=${project.version}, commit_id=${git.commit.id}, commit_time=${git.commit.time}, profiles_active=${spring.profiles.active}
+        # Use ip address rather than hostname during registration
+        prefer-ip-address: ${SPRING_CLOUD_CONSUL_DISCOVERY_PREFER_IP_ADDRESS:true}
+        # IP address to use when accessing service (must also set preferIpAddress to use)
+        ipAddress: ${SPRING_CLOUD_CONSUL_DISCOVERY_IPADDRESS:localhost}
+    inetutils:
+      ignored-interfaces:
+        - vbox*
+        - bridge*
+        - docker0
+        - veth.*
+        - lo*
+      preferredNetworks:
+        - 192.168
+        - 10.0
+
 # ----------------------------------------
 # ACTUATOR PROPERTIES
 # ----------------------------------------
@@ -42,7 +92,7 @@ spring.cloud.config.server.git.uri: https://github.com/cjrequena/config-repo # T
 #spring.cloud.config.server.git.username: gitusername
 #spring.cloud.config.server.git.password: gitpassword
 #spring.cloud.config.server.git.basedir: target/config
-spring.cloud.config.server.bootstrap: true # Whether the Spring Cloud Config Server should configure iteslf with the loaded configuration.
+spring.cloud.config.server.bootstrap: true # Whether the Spring Cloud Config Server should configure itself with the loaded configuration.
 spring.cloud.config.server.health.enabled: false # Turn on/off  health indicator on config server
 
 # CHANGE REPLICATION THROUGH KAFKA.
@@ -59,7 +109,4 @@ logging.config: classpath:log4j2-spring.xml # Location of the logging configurat
 logging.file.name: log4j2-spring.xml # Log file name (for instance, `myapp.log`). Names can be an exact location or relative to the current directory.
 logging.level: # Log levels severity mapping. For instance, `logging.level.org.springframework: DEBUG`.
   org.springframework: INFO
-  com.sample: DEBUG
-  com.zaxxer.hikari.HikariConfig: DEBUG
-  org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-  io.swagger.models.*: ERROR
+  com.cjrequena.sample: DEBUG
